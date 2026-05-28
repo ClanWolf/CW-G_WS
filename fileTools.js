@@ -1,5 +1,6 @@
 const fs = require('fs').promises;
 const path = require('path');
+const {logger} = require("./logger");
 
 async function listDir(dirPath) {
     try {
@@ -16,6 +17,7 @@ async function listDir(dirPath) {
         return logfiles;
     } catch (err) {
         console.error("Error reading directory:", err);
+	    logger.error(`Error reading directory: ${err}`);
     }
 }
 

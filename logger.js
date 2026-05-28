@@ -7,11 +7,20 @@ const logger = pino({
 		targets: [
 			{
 				target: 'pino-pretty',
-				options: { colorize: false, }
+				options: {
+					colorize: false
+				}
 			},
 			{
 				target: 'pino-roll',
-				options: { file: './public/log/combined.txt', mkdir: true, size: '10m', limit: { count: 5 } }
+				options: {
+					file: './public/log/gateway_logfile.txt',
+					mkdir: true,
+					size: '5m',
+					limit: {
+						count: 5
+					}
+				}
 			},
 			// https://github.com/pinojs/pino-toke
 //			{
