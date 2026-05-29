@@ -1,10 +1,12 @@
 const { logger } = require("../logger.js");
 const db = require("../db.js");
+const Pconfight = require("../models/Pconfight");
 
 const express = require("express");
 const router = express.Router();
 
 const TABLE_NAME = "c3_PCONFIGHT";
+const PRIMARY_KEY_COLUMN = "PCONFIGHT_ID";
 
 function serializeInsertResult(result) {
   return {
@@ -21,21 +23,15 @@ async function getWritableColumns() {
     .map((column) => column.Field);
 }
 
-async function getPrimaryKeyColumn() {
-  const columns = await db.pool.query(`SHOW COLUMNS FROM ${TABLE_NAME}`);
-  const primaryKeyColumn = columns.find((column) => column.Key === "PRI");
-
-  return primaryKeyColumn ? primaryKeyColumn.Field : null;
-}
-
 router.get("/", async (req, res) => {
   const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
 
   try {
     const fights = await db.pool.query(`SELECT * FROM ${TABLE_NAME}`);
+    const pconfights = fights.map((fight) => new Pconfight(fight));
     logger.info("List of all pconfight records requested from ip: " + ip);
 
-    res.status(200).send(fights);
+    res.status(200).send(pconfights);
   } catch (err) {
     logger.error("Failed to load pconfight records: " + err.message);
     res.status(500).json({ message: "Server error" });
@@ -46,14 +42,8 @@ router.get("/:id", async (req, res) => {
   const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
 
   try {
-    const primaryKeyColumn = await getPrimaryKeyColumn();
-
-    if (!primaryKeyColumn) {
-      return res.status(500).json({ message: "Pconfight primary key not found" });
-    }
-
     const fights = await db.pool.query(
-      `SELECT * FROM ${TABLE_NAME} WHERE \`${primaryKeyColumn}\` = ? LIMIT 1`,
+      `SELECT * FROM ${TABLE_NAME} WHERE \`${PRIMARY_KEY_COLUMN}\` = ? LIMIT 1`,
       [req.params.id]
     );
 
@@ -61,7 +51,9 @@ router.get("/:id", async (req, res) => {
       "Pconfight record with id " + req.params.id + " requested from ip: " + ip
     );
 
-    fights.length > 0 ? res.status(200).json(fights[0]) : res.sendStatus(404);
+    fights.length > 0
+      ? res.status(200).json(new Pconfight(fights[0]))
+      : res.sendStatus(404);
   } catch (err) {
     logger.error("Failed to load pconfight record: " + err.message);
     res.status(500).json({ message: "Server error" });
