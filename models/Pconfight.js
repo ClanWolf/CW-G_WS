@@ -1,18 +1,18 @@
 // models/Pconfight.js
 class Pconfight {
   constructor(data) {
-    this.PCONFIGHT_ID = data.PCONFIGHT_ID;
-    this.PCONFIGHT_NAME = data.PCONFIGHT_NAME;
-    this.PCONFIGHT_LOCATION = data.PCONFIGHT_LOCATION;
-    this.PCONFIGHT_QUIRK = data.PCONFIGHT_QUIRK;
-    this.ID_PCONCAMPAIGN = data.ID_PCONCAMPAIGN;
-    this.ID_PLAYER_FACTION_A = data.ID_PLAYER_FACTION_A;
-    this.ID_PLAYER_FACTION_B = data.ID_PLAYER_FACTION_B;
-    this.ID_PLAYER_FACTION_C = data.ID_PLAYER_FACTION_C;
-    this.ID_PLAYER_FACTION_D = data.ID_PLAYER_FACTION_D;
-    this.ID_FACTION_WINNER = data.ID_FACTION_WINNER;
-    this.IDATTACK = data.IDATTACK;
-    this.UPDATED = data.UPDATED;
+    this.pconfight_id = data.pconfight_id;
+    this.pconfight_name = data.pconfight_name;
+    this.pconfight_location = data.pconfight_location;
+    this.pconfight_quirk = data.pconfight_quirk;
+    this.id_pconcampaign = data.id_pconcampaign;
+    this.id_player_faction_a = data.id_player_faction_a;
+    this.id_player_faction_b = data.id_player_faction_b;
+    this.id_player_faction_c = data.id_player_faction_c;
+    this.id_player_faction_d = data.id_player_faction_d;
+    this.id_faction_winner = data.id_faction_winner;
+    this.idattack = data.idattack;
+    this.updated = data.updated;
   }
 }
 
