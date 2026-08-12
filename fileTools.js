@@ -10,7 +10,7 @@ async function listDir(dirPath) {
       const fullPath = path.join(dirPath, file);
       const stats = await fs.stat(fullPath);
 
-      if (stats.isFile() && file.startsWith("combined.")) {
+      if (stats.isFile() && file.startsWith("gateway_logfile.")) {
         logfiles.push(`${file}`);
       }
     });
