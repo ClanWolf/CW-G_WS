@@ -62,7 +62,7 @@ app.use("/pconfight", require("./routes/pconfight"));
 app.use("/", async (req, res) => {
     const result = await listDir("public/log/");
     const param = {
-        pageTitle: "CWG DataGateway",
+        pageTitle: "CWG DataGateway (dg.clanwolf.net)",
         favicon: "/favicon.png",
         cssFile: "/css/main.css",
         logPath: "/log/",
