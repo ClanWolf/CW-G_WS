@@ -11,3 +11,13 @@
 <h2>C3-Server Logs</h2>
 
 <iframe id="log" name="log" title="Log window" style="width: 100%; height: 500px; border: 1px solid #000;" src="{{logPath}}consolelog.txt"></iframe>
+
+<script type="text/javascript">
+	function adjustIframe() {
+		var h = document.getElementById('log').contentWindow.document.body.scrollHeight;
+		document.getElementById('log').height = h;
+	}
+
+	window.onload = adjustIframe;
+	window.onresize = adjustIframe;
+</script>
