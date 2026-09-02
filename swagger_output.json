@@ -8,9 +8,7 @@
   },
   "host": "dg.clanwolf.net",
   "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+  "schemes": "https",
   "paths": {
     "/login/": {
       "post": {
