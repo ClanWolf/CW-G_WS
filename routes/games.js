@@ -23,6 +23,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/sb", async (req, res) => {
+	//router.get("/", verifyToken, async (req, res) => {
+
+	try {
+		var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
+		const games = await db.pool.query("SELECT * FROM asc_game where showInScoreboard = 1");
+		logger.info("List of all games requested from ip: " + ip);
+
+		res.status(200).send(games);
+	} catch (err) {
+		throw err;
+	}
+});
+
 /* router.get("/:id", async (req, res) => {
   var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
   const games = await db.pool.query("SELECT * FROM asc_game");

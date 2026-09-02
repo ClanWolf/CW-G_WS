@@ -123,6 +123,23 @@
         }
       }
     },
+    "/games/sb": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "x-forwarded-for",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/games/{id}": {
       "get": {
         "description": "",
