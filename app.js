@@ -56,7 +56,11 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use("/login", require("./routes/login.js"));
 app.use("/player", require("./routes/player.js"));
 app.use("/games", require("./routes/games.js"));
-app.use("/pconfight", require("./routes/pconfight.js"));
+app.use("/auxcampaign", require("./routes/auxcampaign.js"));
+app.use("/auxcampaignfactions", require("./routes/auxcampaignfactions.js"));
+app.use("/auxfights", require("./routes/auxfights.js"));
+app.use("/auxfightusers", require("./routes/auxfightusers.js"));
+app.use("/auxusers", require("./routes/auxusers.js"));
 //app.use("/units", require("./routes/units"));
 
 app.use("/", async (req, res) => {

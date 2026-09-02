@@ -1,12 +1,12 @@
 const { logger } = require("../logger.js");
 const db = require("../db.js");
-const Pconfight = require("../models/Pconfight");
+const AuxCampaign = require("../models/AuxCampaign");
 
 const express = require("express");
 const router = express.Router();
 
-const TABLE_NAME = "c3_PCONFIGHT";
-const PRIMARY_KEY_COLUMN = "PCONFIGHT_ID";
+const TABLE_NAME = "aux_campaigns";
+const PRIMARY_KEY_COLUMN = "aux_campaign_id";
 
 function serializeInsertResult(result) {
   return {
@@ -27,13 +27,13 @@ router.get("/", async (req, res) => {
   const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
 
   try {
-    const fights = await db.pool.query(`SELECT * FROM ${TABLE_NAME}`);
-    const pconfights = fights.map((fight) => new Pconfight(fight));
-    logger.info("List of all pconfight records requested from ip: " + ip);
+    const campaigns = await db.pool.query(`SELECT * FROM ${TABLE_NAME}`);
+    const auxCampaigns = campaigns.map((campaign) => new AuxCampaign(campaign));
+    logger.info("List of all aux_campaign records requested from ip: " + ip);
 
-    res.status(200).send(pconfights);
+    res.status(200).send(auxCampaigns);
   } catch (err) {
-    logger.error("Failed to load pconfight records: " + err.message);
+    logger.error("Failed to load aux_campaign records: " + err.message);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -42,20 +42,20 @@ router.get("/:id", async (req, res) => {
   const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
 
   try {
-    const fights = await db.pool.query(
+    const campaigns = await db.pool.query(
       `SELECT * FROM ${TABLE_NAME} WHERE \`${PRIMARY_KEY_COLUMN}\` = ? LIMIT 1`,
       [req.params.id]
     );
 
     logger.info(
-      "Pconfight record with id " + req.params.id + " requested from ip: " + ip
+      "Aux campaign record with id " + req.params.id + " requested from ip: " + ip
     );
 
-    fights.length > 0
-      ? res.status(200).json(new Pconfight(fights[0]))
+    campaigns.length > 0
+      ? res.status(200).json(new AuxCampaign(campaigns[0]))
       : res.sendStatus(404);
   } catch (err) {
-    logger.error("Failed to load pconfight record: " + err.message);
+    logger.error("Failed to load aux campaign record: " + err.message);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -77,7 +77,7 @@ router.post("/", async (req, res) => {
 
     if (unknownColumns.length > 0) {
       return res.status(400).json({
-        message: "Unknown or read-only pconfight fields provided",
+        message: "Unknown or read-only aux_campaign fields provided",
         fields: unknownColumns,
       });
     }
@@ -89,7 +89,7 @@ router.post("/", async (req, res) => {
     if (payloadColumns.length === 0) {
       return res
         .status(400)
-        .json({ message: "No valid pconfight fields provided" });
+        .json({ message: "No valid aux_campaign fields provided" });
     }
 
     const columns = payloadColumns.map((column) => `\`${column}\``).join(", ");
@@ -101,11 +101,11 @@ router.post("/", async (req, res) => {
       values
     );
 
-    logger.info("Pconfight record created from ip: " + ip);
+    logger.info("Aux campaign record created from ip: " + ip);
 
     res.status(201).json(serializeInsertResult(result));
   } catch (err) {
-    logger.error("Failed to create pconfight record: " + err.message);
+    logger.error("Failed to create aux campaign record: " + err.message);
     res.status(500).json({ message: "Server error" });
   }
 });
