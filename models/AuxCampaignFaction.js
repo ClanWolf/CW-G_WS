@@ -1,9 +1,9 @@
 // models/AuxCampaignFaction.js
 class AuxCampaignFaction {
   constructor(data) {
-    this.aux_campaignfaction_id = data.aux_campaignfaction_id;
-    this.id_aux_campaign = data.id_aux_campaign;
-    this.id_faction = data.id_faction;
+    this.id_campaignfaction = data.id_campaignfaction;
+    this.campaign_id = data.campaign_id;
+    this.faction_id = data.faction_id;
     this.updated = data.updated;
   }
 }

@@ -1,10 +1,11 @@
 // models/AuxFightUser.js
 class AuxFightUser {
   constructor(data) {
-    this.aux_fightuser_id = data.aux_fightuser_id;
-    this.id_aux_fight = data.id_aux_fight;
-    this.id_player = data.id_player;
-    this.id_faction = data.id_faction;
+    this.id_fightuser = data.id_fightuser;
+    this.fight_id = data.fight_id;
+    this.user_id = data.user_id;
+    this.faction_id = data.faction_id;
+    this.fightcreator = data.fightcreator;
     this.updated = data.updated;
   }
 }

@@ -1,9 +1,8 @@
 // models/AuxUser.js
 class AuxUser {
   constructor(data) {
-    this.aux_user_id = data.aux_user_id;
-    this.id_player = data.id_player;
-    this.id_faction = data.id_faction;
+    this.id_user = data.id_user;
+    this.username = data.username;
     this.updated = data.updated;
   }
 }
