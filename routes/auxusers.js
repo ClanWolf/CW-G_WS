@@ -6,7 +6,7 @@ const express = require("express");
 const router = express.Router();
 
 const TABLE_NAME = "aux_users";
-const PRIMARY_KEY_COLUMN = "aux_user_id";
+const PRIMARY_KEY_COLUMN = "id_user";
 
 function serializeInsertResult(result) {
   return {
