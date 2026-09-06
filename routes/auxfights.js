@@ -43,7 +43,7 @@ router.get("/:id", async (req, res) => {
 
   try {
     const fights = await db.pool.query(
-      `SELECT * FROM ${TABLE_NAME} WHERE \`${PRIMARY_KEY_COLUMN}\` = ? LIMIT 1`,
+      `SELECT * FROM aux_fights af LEFT JOIN aux_fightuser au WHERE af.confirmed = 0 AND au.user_id = ? LIMIT 1`,
       [req.params.id]
     );
 
