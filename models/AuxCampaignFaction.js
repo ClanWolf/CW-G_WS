@@ -4,6 +4,12 @@ class AuxCampaignFaction {
     this.id_campaignfaction = data.id_campaignfaction;
     this.campaign_id = data.campaign_id;
     this.faction_id = data.faction_id;
+    this.metaData = {
+      name: {
+        de: data.Name_de,
+        en: data.Name_en
+      }
+    };
     this.updated = data.updated;
   }
 }
